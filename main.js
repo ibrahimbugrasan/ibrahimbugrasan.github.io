@@ -186,6 +186,8 @@
         const top = BAND + laneH * li + 6;
         const hh = laneH - 12;
         ctx.strokeStyle = c.color;
+        ctx.shadowColor = c.color;
+        ctx.shadowBlur = 14;
         ctx.beginPath();
         for (let i = 0; i < buf.length; i++) {
           const val = Math.min(c.max, Math.max(c.min, buf[i].v[li]));
@@ -194,6 +196,7 @@
           if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }
         ctx.stroke();
+        ctx.shadowBlur = 0;
         // lane label
         const text = L(c.tr, c.en);
         ctx.font = '500 12px "Instrument Sans", system-ui, sans-serif';
@@ -543,13 +546,15 @@
         ctx.lineJoin = 'round'; ctx.lineCap = 'round';
         ctx.beginPath();
         path.forEach((p, i) => (i ? ctx.lineTo(cx(p.x), cy(p.y)) : ctx.moveTo(cx(p.x), cy(p.y))));
+        ctx.shadowColor = C.amber; ctx.shadowBlur = 18;
         ctx.stroke();
       }
       const r = Math.max(5, cell * 0.36);
-      ctx.fillStyle = C.cyan;
+      ctx.fillStyle = C.cyan; ctx.shadowColor = C.cyan; ctx.shadowBlur = 20;
       ctx.beginPath(); ctx.arc(cx(start.x), cy(start.y), r, 0, 6.3); ctx.fill();
-      ctx.fillStyle = C.green;
+      ctx.fillStyle = C.green; ctx.shadowColor = C.green;
       ctx.fillRect(cx(goal.x) - r, cy(goal.y) - r, r * 2, r * 2);
+      ctx.shadowBlur = 0;
 
       ctx.font = '500 12px "Instrument Sans", system-ui, sans-serif';
       ctx.textBaseline = 'bottom';
@@ -630,10 +635,195 @@
     });
   })();
 
+  /* ───────────── Hero terrain: flying over a wireframe landscape ───────────── */
+  (function terrain() {
+    const canvas = $('#terrain');
+    const COLS = 44, ROWS = 30, DX = 1.15, DZ = 1.0, CAM = 2.6;
+    let ctx, W = 0, H = 0, zOff = 0, px = 0, pxT = 0;
+    const stars = Array.from({ length: 110 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.2 + 0.3, p: Math.random() * 6.3 }));
+
+    const height = (x, zi) => {
+      const corridor = Math.min(1, Math.pow(Math.abs(x) / 7, 1.6));   // flat flight corridor in the middle
+      return (Math.sin(x * 0.42 + zi * 0.31) * 1.1 + Math.sin(x * 0.17 - zi * 0.23) * 1.7 + Math.sin(zi * 0.47 + x * 0.9) * 0.5 + 1.6) * corridor;
+    };
+
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      const hor = H * 0.6, f = Math.max(W, 700) * 0.52, cxm = W / 2 + px * 40;
+
+      // stars
+      for (const s of stars) {
+        ctx.globalAlpha = 0.35 + 0.45 * Math.sin(t * 0.0012 + s.p) ** 2;
+        ctx.fillStyle = '#fff';
+        ctx.beginPath(); ctx.arc(s.x * W + px * 12, s.y * hor * 0.95, s.r, 0, 6.3); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      // horizon glow
+      const glow = ctx.createRadialGradient(cxm, hor, 0, cxm, hor, W * 0.55);
+      glow.addColorStop(0, 'rgba(255,61,203,0.5)');
+      glow.addColorStop(0.35, 'rgba(139,92,255,0.25)');
+      glow.addColorStop(1, 'rgba(139,92,255,0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, hor - W * 0.3, W, W * 0.6);
+      const line = ctx.createLinearGradient(0, 0, W, 0);
+      line.addColorStop(0, 'rgba(34,225,255,0)'); line.addColorStop(0.5, 'rgba(255,255,255,0.9)'); line.addColorStop(1, 'rgba(255,61,203,0)');
+      ctx.fillStyle = line; ctx.fillRect(0, hor - 1, W, 2);
+
+      // terrain
+      const zi0 = Math.floor(zOff / DZ), frac = (zOff / DZ) - zi0;
+      const pts = [];
+      for (let k = 0; k <= ROWS; k++) {
+        const z = (k + 1 - frac) * DZ + 0.4;
+        const row = [];
+        for (let c = 0; c <= COLS; c++) {
+          const x = (c - COLS / 2) * DX;
+          const y = height(x, k + zi0);
+          row.push([cxm + (x / z) * f, hor + ((CAM - y) / z) * f]);
+        }
+        pts.push(row);
+      }
+      const grad = ctx.createLinearGradient(0, 0, W, 0);
+      grad.addColorStop(0, '#22E1FF'); grad.addColorStop(0.5, '#8B5CFF'); grad.addColorStop(1, '#FF3DCB');
+      ctx.strokeStyle = grad; ctx.lineWidth = 1.1; ctx.lineJoin = 'round';
+      ctx.shadowColor = '#8B5CFF'; ctx.shadowBlur = 8;
+      for (let k = ROWS; k >= 0; k--) {
+        const fade = Math.pow(1 - (k + 1 - frac) / (ROWS + 1), 1.5);
+        ctx.globalAlpha = Math.max(0, fade) * 0.9;
+        ctx.beginPath();
+        pts[k].forEach((p, c) => (c ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
+        ctx.stroke();
+        if (k < ROWS) {
+          ctx.beginPath();
+          for (let c = 0; c <= COLS; c++) { ctx.moveTo(pts[k][c][0], pts[k][c][1]); ctx.lineTo(pts[k + 1][c][0], pts[k + 1][c][1]); }
+          ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    }
+
+    function resize() { const r = fitCanvas(canvas); ctx = r.ctx; W = r.w; H = r.h; draw(performance.now()); }
+    let raf = 0, last = 0, visible = true;
+    function frame(ts) {
+      raf = 0;
+      if (!visible || document.hidden) return;
+      const dt = Math.min(0.05, (ts - (last || ts)) / 1000); last = ts;
+      zOff += dt * 2.4;
+      px += (pxT - px) * 0.05;
+      draw(ts);
+      raf = requestAnimationFrame(frame);
+    }
+    const kick = () => { if (!reduced && !raf) { last = 0; raf = requestAnimationFrame(frame); } };
+    window.addEventListener('pointermove', (e) => { pxT = (e.clientX / innerWidth - 0.5) * -1; }, { passive: true });
+    resize();
+    new ResizeObserver(resize).observe(canvas);
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; if (visible) kick(); }).observe(canvas);
+    document.addEventListener('visibilitychange', kick);
+    kick();
+  })();
+
+  /* ───────────── Page effects ───────────── */
+  (function effects() {
+    // scroll progress
+    const bar = $('#progress');
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.setProperty('--p', max > 0 ? Math.min(1, scrollY / max) : 0);
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // pointer spotlight on glass surfaces
+    const GLASS = '.tele, .pipe-detail, .why-grid article, .mars-facts, .skills, .sqlx, .drone-view';
+    document.addEventListener('pointermove', (e) => {
+      const el = e.target.closest && e.target.closest(GLASS);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      el.style.setProperty('--my', `${e.clientY - r.top}px`);
+    }, { passive: true });
+
+    // gauge + count-up
+    const gauge = $('#gauge'), big = $('#factBig');
+    const fmt = (n) => L(`%${n}`, `${n}%`);
+    let counted = false;
+    function count() {
+      if (counted) return; counted = true;
+      gauge.classList.add('in');
+      if (reduced) { big.textContent = fmt(93); return; }
+      const t0 = performance.now();
+      const tick = (ts) => {
+        const k = Math.min(1, (ts - t0) / 1900), e = 1 - Math.pow(1 - k, 3);
+        big.textContent = fmt(Math.round(93 * e));
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+    langListeners.push(() => { big.textContent = fmt(93); });
+
+    if (reduced) { count(); return; }
+
+    // scroll reveal
+    const targets = document.querySelectorAll('.marquee, .why .h-sec, .why-grid article, .sec-head, .pipe, .mars-facts, .llm-block, .drone, .plist li, .tl li, .skills, .contact > *');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        if (en.target.contains(gauge)) count();
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    targets.forEach((el) => {
+      const sibs = el.parentElement ? [...el.parentElement.children].filter((c) => c.tagName === el.tagName) : [el];
+      el.style.setProperty('--d', `${Math.min(sibs.indexOf(el), 5) * 0.09}s`);
+      el.classList.add('rv');
+      io.observe(el);
+    });
+
+    // 3D tilt on the three reason cards
+    if (matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.why-grid article').forEach((card) => {
+        card.addEventListener('pointermove', (e) => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          card.classList.add('tilting');
+          card.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(12px)`;
+        });
+        card.addEventListener('pointerleave', () => {
+          card.classList.remove('tilting');
+          card.style.transition = 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+          card.style.transform = '';
+          setTimeout(() => { card.style.transition = ''; }, 600);
+        });
+      });
+    }
+
+    // decode effect on the role line
+    const role = $('#heroRole');
+    const GLYPHS = '01<>/#_[]{}';
+    function decode() {
+      const final = role.textContent;
+      const t0 = performance.now();
+      const tick = (ts) => {
+        const k = Math.min(1, (ts - t0 - 500) / 1100);
+        if (k < 0) { role.textContent = ''; requestAnimationFrame(tick); return; }
+        const shown = Math.floor(final.length * k);
+        let out = final.slice(0, shown);
+        for (let i = shown; i < Math.min(final.length, shown + 4); i++) out += final[i] === ' ' ? ' ' : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        role.textContent = out;
+        if (k < 1) requestAnimationFrame(tick); else role.textContent = final;
+      };
+      requestAnimationFrame(tick);
+    }
+    window.__decodeRole = decode;
+  })();
+
   /* ───────────── Initial language ───────────── */
   let initial = 'tr';
   const param = new URLSearchParams(location.search).get('lang');
   try { initial = localStorage.getItem('lang') || initial; } catch (e) { /* storage unavailable */ }
   if (param === 'en' || param === 'tr') initial = param;
+  document.querySelectorAll('[data-en]').forEach((el) => { if (el.dataset.tr === undefined) el.dataset.tr = el.innerHTML; });
   if (initial === 'en') applyLang('en');
+  if (window.__decodeRole) window.__decodeRole();
 })();
