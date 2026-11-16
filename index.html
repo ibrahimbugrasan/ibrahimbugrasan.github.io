@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İbrahim Buğra San | AI / ML Mühendisi</title>
+<meta name="description" content="LLM/RAG sistemleri ve derin öğrenme üzerine çalışan AI/ML mühendisi. TUSAŞ LIFT UP kapsamındaki MARS çalışması IEEE Xplore'da yayımlandı.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="İbrahim Buğra San | AI / ML Mühendisi">
+<meta property="og:description" content="Uçuş verisinden manevra tanıyan modeller, sözleşme okuyan RAG sistemleri ve veritabanıyla konuşan chatbotlar. IEEE Xplore yayını, TUSAŞ LIFT UP, CarrefourSA.">
+<meta property="og:url" content="https://ibrahimbugrasan.github.io/">
+<meta property="og:image" content="https://ibrahimbugrasan.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="canonical" href="https://ibrahimbugrasan.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E1D33">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E1D33'/%3E%3Cpath d='M6 40h12l6-18 8 28 7-22 5 12h14' fill='none' stroke='%23FFB627' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Saira+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#mars" data-en="Skip to content">İçeriğe geç</a>
+
+<header class="top">
+  <a class="top-name" href="#giris">İbrahim Buğra San</a>
+  <nav class="top-nav" aria-label="Bölümler">
+    <a href="#mars">MARS</a>
+    <a href="#llm" data-en="LLM systems">LLM sistemleri</a>
+    <a href="#projeler" data-en="Projects">Projeler</a>
+    <a href="#deneyim" data-en="Experience">Deneyim</a>
+    <a href="#iletisim" data-en="Contact">İletişim</a>
+  </nav>
+  <button class="lang" type="button" id="langBtn" aria-label="Switch to English">EN</button>
+</header>
+
+<main>
+
+<!-- ───────────── Giriş ───────────── -->
+<section class="hero" id="giris">
+  <div class="hero-head">
+    <h1 class="hero-name">İbrahim Buğra San</h1>
+    <div class="hero-side">
+      <p class="hero-role" data-en="AI / ML engineer">AI / ML mühendisi</p>
+      <p class="hero-pitch" data-en="I build models that recognise helicopter maneuvers from flight data, RAG systems that read thousands of pages of contracts, and chatbots that talk to databases.">Uçuş verisinden helikopter manevralarını tanıyan modeller, binlerce sayfa sözleşme okuyan RAG sistemleri ve veritabanıyla konuşan chatbotlar geliştiriyorum.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="mailto:ibugrasan@gmail.com" data-en="Send an email">E-posta gönder</a>
+        <a class="btn" href="https://github.com/ibrahimbugrasan" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://linkedin.com/in/ibrahimbugrasan" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tele" aria-label="Uçuş telemetrisi simülasyonu">
+    <div class="tele-read" aria-live="off">
+      <div class="tele-now">
+        <span class="tele-k" data-en="Detected maneuver">Tespit edilen manevra</span>
+        <strong id="rdManeuver">–</strong>
+      </div>
+      <div class="tele-now">
+        <span class="tele-k" data-en="Confidence">Güven</span>
+        <strong id="rdConf">–</strong>
+      </div>
+      <div class="tele-now tele-rule">
+        <span class="tele-k" data-en="Physics rule check">Fizik kuralı denetimi</span>
+        <strong id="rdRule">–</strong>
+      </div>
+      <ul class="tele-vals" id="rdVals"></ul>
+    </div>
+    <canvas id="teleCanvas" role="img" aria-label="Dört kanallı sentetik uçuş verisi ve manevra etiketleri"></canvas>
+    <div class="tele-foot">
+      <p data-en="Illustrative simulation of what MARS does: it runs on synthetic data in your browser, not on the real model or real flight data.">MARS'ın yaptığı işin temsili simülasyonu: tarayıcınızda sentetik veriyle çalışır, gerçek model ya da gerçek uçuş verisi değildir.</p>
+      <button class="btn btn-warn" type="button" id="oodBtn" data-en="Send out-of-distribution data">Dağılım dışı veri gönder</button>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── Neden ───────────── -->
+<section class="why" id="neden">
+  <h2 class="h-sec" data-en="Three reasons to bring me onto your team">Beni ekibinize almanız için üç neden</h2>
+  <div class="why-grid">
+    <article>
+      <h3 data-en="I take research all the way to publication">Araştırmayı yayına kadar götürürüm</h3>
+      <p data-en="The maneuver analysis system I built within TUSAŞ LIFT UP was presented at ISADES 2026 and published on IEEE Xplore. I am the first author.">TUSAŞ LIFT UP kapsamında geliştirdiğim manevra analiz sistemi ISADES 2026'da sunuldu ve IEEE Xplore'da yayımlandı. Makalenin birinci yazarıyım.</p>
+    </article>
+    <article>
+      <h3 data-en="I have built LLM systems inside a real company">LLM'i gerçek bir şirketin içinde kurdum</h3>
+      <p data-en="At CarrefourSA I built a RAG assistant over the lease-contract archive and a Text-to-SQL chatbot for finance data, using Python and Azure OpenAI.">CarrefourSA'da kira sözleşmesi arşivi üzerinde çalışan bir RAG asistanı ve finans verisi için Text-to-SQL chatbot geliştirdim; Python ve Azure OpenAI ile.</p>
+    </article>
+    <article>
+      <h3 data-en="I own the work end to end">İşi baştan sona sahiplenirim</h3>
+      <p data-en="At Özka Lastik I carried the full technical responsibility for several commercial web platforms, built from scratch with C# and Blazor.">Özka Lastik'te C# ve Blazor ile sıfırdan geliştirilen birden fazla ticari web platformunun tüm teknik sorumluluğunu üstlendim.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────── MARS ───────────── -->
+<section class="mars" id="mars">
+  <div class="sec-head">
+    <h2 class="h-sec" data-en="MARS: a maneuver analysis system for helicopter predictive maintenance">MARS: helikopter kestirimci bakımı için manevra analiz sistemi</h2>
+    <p class="lede" data-en="Rule-based systems catch threshold exceedances, but miss the repeated, sub-threshold aggressive maneuvers that build up fatigue. MARS detects maneuvers automatically from flight recorder data and turns them into maintenance reports, with no change to onboard hardware.">Kural tabanlı sistemler eşik aşımlarını yakalar, ama yorulma hasarını biriktiren, eşiğin altında kalan sert manevraları kaçırır. MARS, uçuş kayıt cihazı verisinden manevraları otomatik tespit eder ve bakım raporuna dönüştürür; hava aracındaki donanıma dokunmadan.</p>
+  </div>
+
+  <div class="mars-body">
+    <div class="pipe">
+      <ol class="pipe-steps" id="pipeSteps" role="tablist" aria-label="MARS işlem hattı"></ol>
+      <div class="pipe-detail" id="pipeDetail" role="tabpanel" tabindex="0"></div>
+    </div>
+
+    <aside class="mars-facts">
+      <p class="fact-big">%93</p>
+      <p class="fact-cap" data-en="maneuver classification accuracy">manevra sınıflandırma doğruluğu</p>
+      <dl>
+        <dt data-en="Program">Program</dt><dd>TUSAŞ LIFT UP</dd>
+        <dt data-en="Published in">Yayın</dt><dd>IEEE Xplore, ISADES 2026</dd>
+        <dt data-en="Authors">Yazarlar</dt><dd>İ. B. San, Ö. H. Gülsoy, S. Solak, O. Okumuş</dd>
+        <dt>DOI</dt><dd><a href="https://doi.org/10.1109/ISADES69945.2026.11608067" target="_blank" rel="noopener">10.1109/ISADES69945.2026.11608067</a></dd>
+      </dl>
+      <a class="btn btn-solid" href="https://ieeexplore.ieee.org/document/11608067" target="_blank" rel="noopener" data-en="Read the paper on IEEE Xplore">Makaleyi IEEE Xplore'da oku</a>
+    </aside>
+  </div>
+</section>
+
+<!-- ───────────── LLM ───────────── -->
+<section class="llm" id="llm">
+  <div class="sec-head">
+    <h2 class="h-sec" data-en="LLM systems I built at CarrefourSA">CarrefourSA'da kurduğum LLM sistemleri</h2>
+    <p class="lede" data-en="Both projects are internal, so the code is not public. Below is how they work.">İki proje de şirket içi olduğu için kodları açık değil. Nasıl çalıştıklarını aşağıda gösteriyorum.</p>
+  </div>
+
+  <div class="llm-block">
+    <div class="llm-text">
+      <h3 data-en="Finance chatbot (Text-to-SQL)">Finans chatbot (Text-to-SQL)</h3>
+      <p data-en="It lets people query sales, stock and revenue data in plain language. Intent classification decides which part of the schema the model sees, so each request carries fewer tokens. Every generated query passes a validation layer before it reaches the database.">Satış, stok ve ciro verisini doğal dille sorgulatır. Niyet sınıflandırma, modelin şemanın hangi kısmını göreceğini belirler; böylece her istek daha az token taşır. Üretilen her sorgu veritabanına gitmeden önce bir denetim katmanından geçer.</p>
+      <p class="stack">Python, Azure OpenAI, MS SQL</p>
+    </div>
+    <div class="sqlx">
+      <div class="sqlx-q" id="sqlQs" role="group" aria-label="Örnek sorular"></div>
+      <ol class="sqlx-trace" id="sqlTrace" aria-live="polite"></ol>
+      <p class="note" data-en="Illustrative example: table and column names are made up, the flow is the real one.">Temsili örnek: tablo ve sütun adları uydurmadır, akış gerçektir.</p>
+    </div>
+  </div>
+
+  <div class="llm-block">
+    <div class="llm-text">
+      <h3 data-en="Lease contract assistant (RAG)">Kira sözleşmesi asistanı (RAG)</h3>
+      <p data-en="It analyses a contract archive of thousands of pages. Scanned documents, Excel, PDF, Word and e-mail all go through a single pipeline. Rent increases are not left to the model's arithmetic: CPI/PPI figures are injected as JSON, so the calculation is exact and hallucination is blocked.">Binlerce sayfalık sözleşme havuzunu analiz eder. Taranmış belgeler, Excel, PDF, Word ve e-postalar tek bir pipeline'dan geçer. Kira artışı modelin aritmetiğine bırakılmaz: TÜFE/ÜFE verisi JSON olarak enjekte edilir, hesap kesin çıkar ve halüsinasyon engellenir.</p>
+      <p class="stack">Python, LangChain, Azure OpenAI, OCR</p>
+    </div>
+    <ol class="rag">
+      <li>
+        <strong data-en="Sources">Kaynaklar</strong>
+        <span data-en="Scans (OCR), Excel, PDF, Word, e-mail">Tarama (OCR), Excel, PDF, Word, e-posta</span>
+      </li>
+      <li>
+        <strong data-en="Single pipeline">Tek pipeline</strong>
+        <span data-en="Parsing, chunking, metadata tagging">Ayrıştırma, parçalama, metadata etiketleme</span>
+      </li>
+      <li>
+        <strong data-en="Hybrid search">Hibrit arama</strong>
+        <span data-en="Metadata filter plus semantic similarity">Metadata filtresi ve anlamsal benzerlik</span>
+      </li>
+      <li>
+        <strong data-en="JSON data injection">JSON veri enjeksiyonu</strong>
+        <span data-en="CPI/PPI figures for the rent increase">Kira artışı için TÜFE/ÜFE verisi</span>
+      </li>
+      <li>
+        <strong data-en="Grounded answer">Kaynağa dayalı cevap</strong>
+        <span data-en="Clause, calculation and source together">Madde, hesap ve kaynak birlikte</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ───────────── Projeler ───────────── -->
+<section class="proj" id="projeler">
+  <div class="sec-head">
+    <h2 class="h-sec" data-en="Other projects">Diğer projeler</h2>
+  </div>
+
+  <div class="drone">
+    <div class="drone-text">
+      <h3 data-en="Drone delivery route optimisation">Drone teslimat rota optimizasyonu</h3>
+      <p data-en="A system that finds the most efficient delivery routes for multi-drone fleets under dynamic constraints such as energy limits and no-fly zones, using A* and a genetic algorithm.">Enerji sınırı ve uçuş yasağı gibi dinamik kısıtlar altında çoklu drone filoları için en verimli teslimat rotasını A* ve genetik algoritma ile bulan sistem.</p>
+      <p data-en="Try it: the grid on the right runs real A* in your browser. Click or drag to draw no-fly zones and the route is recalculated.">Deneyin: yandaki ızgarada tarayıcınızda gerçek bir A* çalışıyor. Tıklayarak ya da sürükleyerek uçuşa yasak bölge çizin, rota yeniden hesaplansın.</p>
+      <p class="drone-stat" id="droneStat" aria-live="polite"></p>
+      <div class="drone-actions">
+        <button class="btn" type="button" id="droneRand" data-en="Random zones">Rastgele bölgeler</button>
+        <button class="btn" type="button" id="droneClear" data-en="Clear zones">Bölgeleri temizle</button>
+        <a class="btn" href="https://github.com/ibrahimbugrasan/DynamicDroneDeliveryPlanning-ConstrainedEnvironments" target="_blank" rel="noopener" data-en="View code">Kodu gör</a>
+      </div>
+    </div>
+    <canvas id="droneCanvas" role="img" aria-label="A* rota ızgarası"></canvas>
+  </div>
+
+  <ul class="plist">
+    <li>
+      <div>
+        <h3 data-en="Damaged vehicle detection">Hasarlı araç tespiti</h3>
+        <p data-en="I built an original dataset with scraping and augmentation, then compared BEiT and Swin architectures to pick the best-performing model.">Veri kazıma ve artırma ile özgün bir veri seti oluşturdum; BEiT ve Swin mimarilerini karşılaştırıp en iyi sonucu veren modeli belirledim.</p>
+      </div>
+      <p class="stack">Python, Swin, BEiT</p>
+      <a href="https://github.com/ibrahimbugrasan/HasarliAracTespiti-2" target="_blank" rel="noopener" data-en="Code on GitHub">GitHub'da kod</a>
+    </li>
+    <li>
+      <div>
+        <h3 data-en="Respiratory sound classification">Solunum sesi sınıflandırması</h3>
+        <p data-en="I collected and pre-processed audio for five conditions (bronchitis, croup, normal, pneumonia, asthma), then trained and compared AST and Wav2Vec2 models.">Beş solunum durumu (bronşit, krup, normal, zatürre, astım) için ses verisi toplayıp ön işledim; AST ve Wav2Vec2 modellerini eğitip karşılaştırdım.</p>
+      </div>
+      <p class="stack">Python, AST, Wav2Vec2</p>
+      <a href="https://github.com/ibrahimbugrasan/PulmoDetect-2" target="_blank" rel="noopener" data-en="Code on GitHub">GitHub'da kod</a>
+    </li>
+    <li>
+      <div>
+        <h3 data-en="Raw material shipment management">Hammadde sevkiyat yönetim sistemi</h3>
+        <p data-en="An internal web system for planning and tracking raw material shipments, with JWT and cookie based authentication.">Hammadde sevkiyat planlama ve takibi için JWT ve cookie tabanlı kimlik doğrulama içeren şirket içi web sistemi.</p>
+      </div>
+      <p class="stack">C#, Blazor, MS SQL</p>
+      <span class="muted" data-en="Internal project">Şirket içi proje</span>
+    </li>
+    <li>
+      <div>
+        <h3 data-en="Maze escape with Q-learning">Q-learning ile labirentten kaçış</h3>
+        <p data-en="A reinforcement learning agent that learns to find the exit of a maze.">Labirentin çıkışını bulmayı öğrenen bir pekiştirmeli öğrenme ajanı.</p>
+      </div>
+      <p class="stack">Python</p>
+      <a href="https://github.com/ibrahimbugrasan/MazeEscapeGameWithQLearning" target="_blank" rel="noopener" data-en="Code on GitHub">GitHub'da kod</a>
+    </li>
+    <li>
+      <div>
+        <h3 data-en="Supermarket automation">Market otomasyonu</h3>
+        <p data-en="A desktop system for cashiers and managers with camera-based barcode scanning and role-specific tools.">Kasiyer ve yöneticiler için kamera destekli barkod okuma ve role özel araçlar içeren masaüstü sistemi.</p>
+      </div>
+      <p class="stack">C#</p>
+      <a href="https://github.com/ibrahimbugrasan/MarketOtomasyonu" target="_blank" rel="noopener" data-en="Code on GitHub">GitHub'da kod</a>
+    </li>
+  </ul>
+</section>
+
+<!-- ───────────── Deneyim ───────────── -->
+<section class="exp" id="deneyim">
+  <div class="sec-head">
+    <h2 class="h-sec" data-en="Experience and education">Deneyim ve eğitim</h2>
+  </div>
+
+  <div class="exp-cols">
+    <ol class="tl">
+      <li>
+        <time data-en="Sep 2025 – Jan 2026">Eyl 2025 – Oca 2026</time>
+        <h3>CarrefourSA</h3>
+        <p class="tl-role" data-en="AI Developer Intern (long-term internship)">AI Developer Intern (uzun dönem staj)</p>
+        <p data-en="Built conversational applications with large language models: the RAG lease contract assistant and the Text-to-SQL finance chatbot.">Büyük dil modelleriyle konuşma tabanlı uygulamalar geliştirdim: RAG tabanlı kira sözleşmesi asistanı ve Text-to-SQL finans chatbot.</p>
+      </li>
+      <li>
+        <time data-en="Mar 2025 – Aug 2025">Mar 2025 – Ağu 2025</time>
+        <h3>Özka Lastik</h3>
+        <p class="tl-role">Web Developer</p>
+        <p data-en="Built several commercial web platforms end to end with C# and Blazor: some automate internal processes, others are designed to be offered to external companies as SaaS.">C# ve Blazor ile birden fazla ticari web platformunu uçtan uca geliştirdim: bir kısmı kurum içi süreçleri otomatize ediyor, bir kısmı SaaS olarak dış şirketlere sunulmak üzere tasarlandı.</p>
+      </li>
+      <li>
+        <time data-en="Jul 2024 – Aug 2024">Tem 2024 – Ağu 2024</time>
+        <h3>Ermarin</h3>
+        <p class="tl-role" data-en="Intern">Stajyer</p>
+        <p data-en="Worked on the software of a locomotive automation project developed for export markets, using IQAN.">Firmanın yurt dışı pazarı için geliştirdiği lokomotif otomasyon projesinin yazılım sürecinde çalıştım; IQAN kullandım.</p>
+      </li>
+      <li>
+        <time>2022 – 2026</time>
+        <h3 data-en="Kocaeli University">Kocaeli Üniversitesi</h3>
+        <p class="tl-role" data-en="BSc, Information Systems Engineering, GPA 3.25">Bilişim Sistemleri Mühendisliği lisans, GNO 3.25</p>
+        <p data-en="LLM team captain at the university's AI Club. AISEC member.">KOÜ Yapay Zeka Kulübü'nde LLM takım kaptanıydım. AISEC üyesiyim.</p>
+      </li>
+    </ol>
+
+    <div class="skills">
+      <h3 data-en="What I work with">Çalıştığım araçlar</h3>
+      <dl>
+        <dt data-en="Languages">Diller</dt>
+        <dd data-en="Python, C# and SQL at an advanced level; Java, JavaScript">Python, C# ve SQL ileri düzeyde; Java, JavaScript</dd>
+        <dt data-en="LLM">LLM</dt>
+        <dd>RAG, LangChain, Azure OpenAI, Text-to-SQL, OCR</dd>
+        <dt data-en="Deep learning">Derin öğrenme</dt>
+        <dd>TensorFlow, Keras, CNN, BiLSTM, Attention, AST, Wav2Vec2, Swin, BEiT</dd>
+        <dt data-en="Backend and web">Backend ve web</dt>
+        <dd>ASP.NET Core, Blazor, Entity Framework, MS SQL Server, JWT</dd>
+        <dt data-en="Tools">Araçlar</dt>
+        <dd>Git, Linux Bash, Google Colab, Pandas, NumPy</dd>
+        <dt data-en="Spoken languages">Yabancı dil</dt>
+        <dd data-en="Turkish (native), English (B2)">İngilizce (B2)</dd>
+        <dt data-en="Certificates">Sertifikalar</dt>
+        <dd data-en="YetGen 21st Century Skills Programme; Machine Learning with Python and Algorithms &amp; Data Structures (BTK Akademi)">YetGen 21. Yüzyıl Yetkinlikleri Programı; Python ile Makine Öğrenmesi ve Algoritma ve Veri Yapıları (BTK Akademi)</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── İletişim ───────────── -->
+<section class="contact" id="iletisim">
+  <h2 class="contact-h" data-en="Let's talk about your team's next AI project.">Ekibinizin bir sonraki yapay zeka projesini konuşalım.</h2>
+  <p class="lede" data-en="I am open to AI/ML engineering roles. E-mail is the fastest way to reach me.">AI/ML mühendisliği pozisyonlarına açığım. Bana en hızlı e-postayla ulaşırsınız.</p>
+  <div class="contact-actions">
+    <a class="btn btn-solid btn-lg" href="mailto:ibugrasan@gmail.com">ibugrasan@gmail.com</a>
+    <button class="btn btn-lg" type="button" id="copyMail" data-en="Copy address">Adresi kopyala</button>
+    <a class="btn btn-lg" href="https://linkedin.com/in/ibrahimbugrasan" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn btn-lg" href="https://github.com/ibrahimbugrasan" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p class="muted" data-en="İzmit, Kocaeli. References available on request.">İzmit, Kocaeli. Referanslar talep üzerine paylaşılır.</p>
+</section>
+
+</main>
+
+<footer class="foot">
+  <p>© 2026 İbrahim Buğra San</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
