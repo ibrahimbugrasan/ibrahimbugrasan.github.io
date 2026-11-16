@@ -397,7 +397,6 @@ main > .hero { padding-top: clamp(3rem, 7vw, 6rem); padding-bottom: clamp(3rem, 
 @media (min-width: 62rem) {
   .plist { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .plist li { grid-column: span 2; }
-  .plist li:nth-child(-n + 2) { grid-column: span 3; }
 }
 .plist li {
   position: relative; overflow: hidden;
@@ -420,6 +419,8 @@ main > .hero { padding-top: clamp(3rem, 7vw, 6rem); padding-bottom: clamp(3rem, 
 .viz .dash { fill: none; stroke: var(--violet); stroke-width: 2; stroke-dasharray: 5 6; animation: dash 1s linear infinite; }
 .viz .trail { fill: none; stroke: rgba(255, 192, 70, 0.3); stroke-width: 2; stroke-dasharray: 3 5; }
 .viz .node { fill: var(--night); stroke: var(--cyan); stroke-width: 2; filter: drop-shadow(0 0 6px var(--cyan)); }
+.viz .ok { fill: none; stroke: var(--green); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px var(--green)); animation: tick 2.4s ease-in-out infinite; }
+@keyframes tick { 0%, 15% { opacity: 0.25; } 45%, 100% { opacity: 1; } }
 .viz .dot { fill: var(--amber); filter: drop-shadow(0 0 7px var(--amber)); }
 @keyframes dash { to { stroke-dashoffset: -22; } }
 @keyframes scan { to { transform: translateY(84px); } }
