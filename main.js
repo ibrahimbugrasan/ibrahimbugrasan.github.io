@@ -761,10 +761,50 @@
     }
     langListeners.push(() => { big.textContent = fmt(93); });
 
+    // scrollspy: mark the current section in the top nav and the side rail
+    const links = [...document.querySelectorAll('.top-nav a, .rail a')];
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        links.forEach((a) => {
+          if (a.getAttribute('href') === '#' + en.target.id) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -54% 0px' });
+    document.querySelectorAll('main > section[id]').forEach((sec) => spy.observe(sec));
+
     if (reduced) { count(); return; }
 
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      // soft light that trails the pointer
+      const aura = $('#aura');
+      let ax = innerWidth / 2, ay = innerHeight / 2, tx = ax, ty = ay, auraRaf = 0;
+      const follow = () => {
+        ax += (tx - ax) * 0.12; ay += (ty - ay) * 0.12;
+        aura.style.transform = `translate3d(${ax}px, ${ay}px, 0)`;
+        auraRaf = Math.abs(tx - ax) + Math.abs(ty - ay) > 0.5 ? requestAnimationFrame(follow) : 0;
+      };
+      addEventListener('pointermove', (e) => {
+        tx = e.clientX; ty = e.clientY;
+        aura.classList.add('on');
+        if (!auraRaf) auraRaf = requestAnimationFrame(follow);
+      }, { passive: true });
+      document.addEventListener('pointerleave', () => aura.classList.remove('on'));
+
+      // primary buttons lean toward the pointer
+      document.querySelectorAll('.btn-solid, .btn-lg').forEach((b) => {
+        b.addEventListener('pointermove', (e) => {
+          const r = b.getBoundingClientRect();
+          b.style.setProperty('--tx', `${((e.clientX - r.left) / r.width - 0.5) * 12}px`);
+          b.style.setProperty('--ty', `${((e.clientY - r.top) / r.height - 0.5) * 10}px`);
+        });
+        b.addEventListener('pointerleave', () => { b.style.removeProperty('--tx'); b.style.removeProperty('--ty'); });
+      });
+    }
+
     // scroll reveal
-    const targets = document.querySelectorAll('.marquee, .why .h-sec, .why-grid article, .sec-head, .pipe, .mars-facts, .llm-block, .drone, .plist li, .tl li, .skills, .contact > *');
+    const targets = document.querySelectorAll('.marquee, .why-grid article, .sec-head, .pipe, .mars-facts, .paper, .llm-block, .drone, .plist li, .tl li, .skills, .contact > *');
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
         if (!en.isIntersecting) return;
@@ -805,7 +845,7 @@
       const final = role.textContent;
       const t0 = performance.now();
       const tick = (ts) => {
-        const k = Math.min(1, (ts - t0 - 500) / 1100);
+        const k = Math.min(1, (ts - t0 - 1500) / 1100);
         if (k < 0) { role.textContent = ''; requestAnimationFrame(tick); return; }
         const shown = Math.floor(final.length * k);
         let out = final.slice(0, shown);

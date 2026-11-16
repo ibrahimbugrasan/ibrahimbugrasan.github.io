@@ -9,7 +9,7 @@
 <meta property="og:title" content="İbrahim Buğra San | AI / ML Mühendisi">
 <meta property="og:description" content="Uçuş verisinden manevra tanıyan modeller, sözleşme okuyan RAG sistemleri ve veritabanıyla konuşan chatbotlar. IEEE Xplore yayını, TUSAŞ LIFT UP, CarrefourSA.">
 <meta property="og:url" content="https://ibrahimbugrasan.github.io/">
-<meta property="og:image" content="https://ibrahimbugrasan.github.io/og.png?v=2">
+<meta property="og:image" content="https://ibrahimbugrasan.github.io/og.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <link rel="canonical" href="https://ibrahimbugrasan.github.io/">
@@ -19,10 +19,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
+<div class="boot" aria-hidden="true"><b>İBS</b><i></i></div>
+<div class="aura" id="aura" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 <a class="skip" href="#mars" data-en="Skip to content">İçeriğe geç</a>
+
+<nav class="rail" id="rail" aria-label="Sayfa içi gezinme">
+  <a href="#giris"><span data-en="Intro">Giriş</span></a>
+  <a href="#neden"><span data-en="Why me">Neden ben</span></a>
+  <a href="#mars"><span>MARS</span></a>
+  <a href="#llm"><span data-en="LLM systems">LLM sistemleri</span></a>
+  <a href="#projeler"><span data-en="Projects">Projeler</span></a>
+  <a href="#deneyim"><span data-en="Experience">Deneyim</span></a>
+  <a href="#iletisim"><span data-en="Contact">İletişim</span></a>
+</nav>
 
 <header class="top">
   <a class="top-name" href="#giris">İbrahim Buğra San</a>
@@ -45,6 +58,7 @@
   <div class="hero-head">
     <p class="hero-badge"><i></i><span data-en="Open to AI / ML engineering roles">AI / ML mühendisliği pozisyonlarına açık</span></p>
     <h1 class="hero-name"><span>İbrahim</span> <span>Buğra San</span></h1>
+    <div class="hero-row">
     <div class="hero-side">
       <p class="hero-role" id="heroRole" data-en="AI / ML engineer">AI / ML mühendisi</p>
       <p class="hero-pitch" data-en="I build models that recognise helicopter maneuvers from flight data, RAG systems that read thousands of pages of contracts, and chatbots that talk to databases.">Uçuş verisinden helikopter manevralarını tanıyan modeller, binlerce sayfa sözleşme okuyan RAG sistemleri ve veritabanıyla konuşan chatbotlar geliştiriyorum.</p>
@@ -53,6 +67,12 @@
         <a class="btn" href="https://github.com/ibrahimbugrasan" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://linkedin.com/in/ibrahimbugrasan" target="_blank" rel="noopener">LinkedIn</a>
       </div>
+    </div>
+    <ul class="hero-stats">
+      <li><strong>IEEE</strong><span data-en="paper published on Xplore, first author">Xplore'da yayımlanmış makale, birinci yazar</span></li>
+      <li><strong data-en="93%">%93</strong><span data-en="accuracy of the MARS maneuver model">MARS manevra modelinin doğruluğu</span></li>
+      <li><strong>LLM</strong><span data-en="RAG and Text-to-SQL systems built at CarrefourSA">CarrefourSA'da kurulan RAG ve Text-to-SQL sistemleri</span></li>
+    </ul>
     </div>
   </div>
 
@@ -89,17 +109,23 @@
 
 <!-- ───────────── Neden ───────────── -->
 <section class="why" id="neden">
-  <h2 class="h-sec" data-en="Three reasons to bring me onto your team">Beni ekibinize almanız için üç neden</h2>
+  <div class="sec-head">
+    <p class="kicker"><b>01</b><span data-en="Why me">Neden ben</span></p>
+    <h2 class="h-sec" data-en="Three reasons to bring me onto your team">Beni ekibinize almanız için üç neden</h2>
+  </div>
   <div class="why-grid">
     <article>
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 6h18l8 8v28H12z"/><path d="M30 6v8h8M18 22h14M18 29h14M18 36h8"/></svg>
       <h3 data-en="I take research all the way to publication">Araştırmayı yayına kadar götürürüm</h3>
       <p data-en="The maneuver analysis system I built within TUSAŞ LIFT UP was presented at ISADES 2026 and published on IEEE Xplore. I am the first author.">TUSAŞ LIFT UP kapsamında geliştirdiğim manevra analiz sistemi ISADES 2026'da sunuldu ve IEEE Xplore'da yayımlandı. Makalenin birinci yazarıyım.</p>
     </article>
     <article>
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h32v22H22l-9 8v-8H8z"/><path d="M16 18h16M16 25h10"/></svg>
       <h3 data-en="I have built LLM systems inside a real company">LLM'i gerçek bir şirketin içinde kurdum</h3>
       <p data-en="At CarrefourSA I built a RAG assistant over the lease-contract archive and a Text-to-SQL chatbot for finance data, using Python and Azure OpenAI.">CarrefourSA'da kira sözleşmesi arşivi üzerinde çalışan bir RAG asistanı ve finans verisi için Text-to-SQL chatbot geliştirdim; Python ve Azure OpenAI ile.</p>
     </article>
     <article>
+      <svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="10" cy="24" r="4"/><circle cx="38" cy="24" r="4"/><circle cx="24" cy="10" r="4"/><circle cx="24" cy="38" r="4"/><path d="M14 24h20M24 14v20"/></svg>
       <h3 data-en="I own the work end to end">İşi baştan sona sahiplenirim</h3>
       <p data-en="At Özka Lastik I carried the full technical responsibility for several commercial web platforms, built from scratch with C# and Blazor.">Özka Lastik'te C# ve Blazor ile sıfırdan geliştirilen birden fazla ticari web platformunun tüm teknik sorumluluğunu üstlendim.</p>
     </article>
@@ -109,6 +135,7 @@
 <!-- ───────────── MARS ───────────── -->
 <section class="mars" id="mars">
   <div class="sec-head">
+    <p class="kicker"><b>02</b><span data-en="Flagship project">Öne çıkan proje</span></p>
     <h2 class="h-sec" data-en="MARS: a maneuver analysis system for helicopter predictive maintenance">MARS: helikopter kestirimci bakımı için manevra analiz sistemi</h2>
     <p class="lede" data-en="Rule-based systems catch threshold exceedances, but miss the repeated, sub-threshold aggressive maneuvers that build up fatigue. MARS detects maneuvers automatically from flight recorder data and turns them into maintenance reports, with no change to onboard hardware.">Kural tabanlı sistemler eşik aşımlarını yakalar, ama yorulma hasarını biriktiren, eşiğin altında kalan sert manevraları kaçırır. MARS, uçuş kayıt cihazı verisinden manevraları otomatik tespit eder ve bakım raporuna dönüştürür; hava aracındaki donanıma dokunmadan.</p>
   </div>
@@ -132,17 +159,28 @@
       <dl>
         <dt data-en="Program">Program</dt><dd>TUSAŞ LIFT UP</dd>
         <dt data-en="Published in">Yayın</dt><dd>IEEE Xplore, ISADES 2026</dd>
-        <dt data-en="Authors">Yazarlar</dt><dd>İ. B. San, Ö. H. Gülsoy, S. Solak, O. Okumuş</dd>
-        <dt>DOI</dt><dd><a href="https://doi.org/10.1109/ISADES69945.2026.11608067" target="_blank" rel="noopener">10.1109/ISADES69945.2026.11608067</a></dd>
+        <dt data-en="Role">Rol</dt><dd data-en="First author, end-to-end development">Birinci yazar, uçtan uca geliştirme</dd>
       </dl>
-      <a class="btn btn-solid" href="https://ieeexplore.ieee.org/document/11608067" target="_blank" rel="noopener" data-en="Read the paper on IEEE Xplore">Makaleyi IEEE Xplore'da oku</a>
     </aside>
   </div>
+
+  <article class="paper ring">
+    <div class="paper-in">
+      <p class="paper-venue">IEEE Xplore, 2nd International Symposium on AI-Driven Engineering Systems (ISADES), 2026</p>
+      <h3>MARS: A Machine Learning-Based Flight Condition Recognition and Maneuver Reporting Framework for Helicopter Predictive Maintenance</h3>
+      <p class="paper-authors"><b>Ibrahim Bugra San</b>, Omer Hasan Gulsoy, Serdar Solak, Onur Okumus</p>
+      <div class="paper-foot">
+        <a class="btn btn-solid" href="https://ieeexplore.ieee.org/document/11608067" target="_blank" rel="noopener" data-en="Read the paper on IEEE Xplore">Makaleyi IEEE Xplore'da oku</a>
+        <a class="paper-doi" href="https://doi.org/10.1109/ISADES69945.2026.11608067" target="_blank" rel="noopener">DOI 10.1109/ISADES69945.2026.11608067</a>
+      </div>
+    </div>
+  </article>
 </section>
 
 <!-- ───────────── LLM ───────────── -->
 <section class="llm" id="llm">
   <div class="sec-head">
+    <p class="kicker"><b>03</b><span data-en="LLM in production settings">Kurumsal LLM işleri</span></p>
     <h2 class="h-sec" data-en="LLM systems I built at CarrefourSA">CarrefourSA'da kurduğum LLM sistemleri</h2>
     <p class="lede" data-en="Both projects are internal, so the code is not public. Below is how they work.">İki proje de şirket içi olduğu için kodları açık değil. Nasıl çalıştıklarını aşağıda gösteriyorum.</p>
   </div>
@@ -194,7 +232,8 @@
 <!-- ───────────── Projeler ───────────── -->
 <section class="proj" id="projeler">
   <div class="sec-head">
-    <h2 class="h-sec" data-en="Other projects">Diğer projeler</h2>
+    <p class="kicker"><b>04</b><span data-en="Projects">Projeler</span></p>
+    <h2 class="h-sec" data-en="Other things I have built">Geliştirdiğim diğer projeler</h2>
   </div>
 
   <div class="drone">
@@ -214,6 +253,7 @@
 
   <ul class="plist">
     <li>
+      <div class="viz"><svg viewBox="0 0 240 100" aria-hidden="true"><path class="ln" d="M40 68h160v-14l-22-6-16-18H96L74 48l-34 6z"/><circle class="ln" cx="80" cy="70" r="10"/><circle class="ln" cx="164" cy="70" r="10"/><rect class="box" x="150" y="32" width="48" height="32" rx="3"/><line class="scan" x1="16" x2="224" y1="8" y2="8"/></svg></div>
       <div>
         <h3 data-en="Damaged vehicle detection">Hasarlı araç tespiti</h3>
         <p data-en="I built an original dataset with scraping and augmentation, then compared BEiT and Swin architectures to pick the best-performing model.">Veri kazıma ve artırma ile özgün bir veri seti oluşturdum; BEiT ve Swin mimarilerini karşılaştırıp en iyi sonucu veren modeli belirledim.</p>
@@ -222,6 +262,7 @@
       <a href="https://github.com/ibrahimbugrasan/HasarliAracTespiti-2" target="_blank" rel="noopener" data-en="Code on GitHub">GitHub'da kod</a>
     </li>
     <li>
+      <div class="viz viz-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div>
         <h3 data-en="Respiratory sound classification">Solunum sesi sınıflandırması</h3>
         <p data-en="I collected and pre-processed audio for five conditions (bronchitis, croup, normal, pneumonia, asthma), then trained and compared AST and Wav2Vec2 models.">Beş solunum durumu (bronşit, krup, normal, zatürre, astım) için ses verisi toplayıp ön işledim; AST ve Wav2Vec2 modellerini eğitip karşılaştırdım.</p>
@@ -230,6 +271,7 @@
       <a href="https://github.com/ibrahimbugrasan/PulmoDetect-2" target="_blank" rel="noopener" data-en="Code on GitHub">GitHub'da kod</a>
     </li>
     <li>
+      <div class="viz"><svg viewBox="0 0 240 100" aria-hidden="true"><path class="dash" d="M24 74C70 20 110 90 150 46s50-10 66-22"/><circle class="node" cx="24" cy="74" r="6"/><circle class="node" cx="216" cy="24" r="6"/><circle class="dot" r="5"><animateMotion dur="4s" repeatCount="indefinite" path="M24 74C70 20 110 90 150 46s50-10 66-22"/></circle></svg></div>
       <div>
         <h3 data-en="Raw material shipment management">Hammadde sevkiyat yönetim sistemi</h3>
         <p data-en="An internal web system for planning and tracking raw material shipments, with JWT and cookie based authentication.">Hammadde sevkiyat planlama ve takibi için JWT ve cookie tabanlı kimlik doğrulama içeren şirket içi web sistemi.</p>
@@ -238,6 +280,7 @@
       <span class="muted" data-en="Internal project">Şirket içi proje</span>
     </li>
     <li>
+      <div class="viz"><svg viewBox="0 0 240 100" aria-hidden="true"><path class="ln" d="M30 10h180v80H30zM70 10v50M110 40v50M150 10v50M190 40v50"/><path class="trail" d="M50 25V75H90V25H130V75H170V25H200"/><circle class="dot" r="5"><animateMotion dur="5s" repeatCount="indefinite" path="M50 25V75H90V25H130V75H170V25H200"/></circle></svg></div>
       <div>
         <h3 data-en="Maze escape with Q-learning">Q-learning ile labirentten kaçış</h3>
         <p data-en="A reinforcement learning agent that learns to find the exit of a maze.">Labirentin çıkışını bulmayı öğrenen bir pekiştirmeli öğrenme ajanı.</p>
@@ -246,6 +289,7 @@
       <a href="https://github.com/ibrahimbugrasan/MazeEscapeGameWithQLearning" target="_blank" rel="noopener" data-en="Code on GitHub">GitHub'da kod</a>
     </li>
     <li>
+      <div class="viz viz-bar" aria-hidden="true"><i></i></div>
       <div>
         <h3 data-en="Supermarket automation">Market otomasyonu</h3>
         <p data-en="A desktop system for cashiers and managers with camera-based barcode scanning and role-specific tools.">Kasiyer ve yöneticiler için kamera destekli barkod okuma ve role özel araçlar içeren masaüstü sistemi.</p>
@@ -259,6 +303,7 @@
 <!-- ───────────── Deneyim ───────────── -->
 <section class="exp" id="deneyim">
   <div class="sec-head">
+    <p class="kicker"><b>05</b><span data-en="Background">Geçmiş</span></p>
     <h2 class="h-sec" data-en="Experience and education">Deneyim ve eğitim</h2>
   </div>
 
@@ -314,6 +359,7 @@
 
 <!-- ───────────── İletişim ───────────── -->
 <section class="contact" id="iletisim">
+  <p class="kicker"><b>06</b><span data-en="Contact">İletişim</span></p>
   <h2 class="contact-h" data-en="Let's talk about your team's next AI project.">Ekibinizin bir sonraki yapay zeka projesini konuşalım.</h2>
   <p class="lede" data-en="I am open to AI/ML engineering roles. E-mail is the fastest way to reach me.">AI/ML mühendisliği pozisyonlarına açığım. Bana en hızlı e-postayla ulaşırsınız.</p>
   <div class="contact-actions">
@@ -331,6 +377,6 @@
   <p>© 2026 İbrahim Buğra San</p>
 </footer>
 
-<script src="main.js?v=2"></script>
+<script src="main.js?v=3"></script>
 </body>
 </html>
